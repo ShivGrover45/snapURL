@@ -43,5 +43,18 @@ const getShortUrl=async(req,res)=>{
    })
    res.redirect(entry.redirectURL)
 }
+const getAnalytics = async (req, res) => {
+    const shortID = req.params.shortID
+    const entry = await url.findOne({ shortID })
 
-module.exports={generateShortUrl,getShortUrl}
+    if (!entry) {
+        return res.status(404).json({ error: "Short URL not found" })
+    }
+
+    return res.status(200).json({
+        totalVisits: entry.visitHistory.length,
+        analytics: entry.visitHistory
+    })
+}
+
+module.exports={generateShortUrl,getShortUrl,getAnalytics}
