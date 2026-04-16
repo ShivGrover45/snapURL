@@ -18,7 +18,7 @@ const generateShortUrl=async(req,res)=>{
     console.log(newURl)
     res.status(200).json({
         message:"short url successfully created",
-        link:`localhost:3000/:${newURl.shortID}`
+        link:`process.env.BASE_URL/:${newURl.shortID}`
     })
     }catch(err){
         console.log(err)
