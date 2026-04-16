@@ -16,6 +16,7 @@ const generateShortUrl=async(req,res)=>{
         visitHistory:[]
     })
     console.log(newURl)
+    console.log("BASE_URL:", process.env.BASE_URL)
     res.status(200).json({
         message:"short url successfully created",
         link: `${process.env.BASE_URL}/api/${newURl.shortID}`
