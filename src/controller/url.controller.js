@@ -15,9 +15,10 @@ const generateShortUrl=async(req,res)=>{
         redirectURL:body.url,
         visitHistory:[]
     })
+    console.log(newURl)
     res.status(200).json({
         message:"short url successfully created",
-        
+        link:`localhost:3000/:${newURl.shortID}`
     })
     }catch(err){
         console.log(err)
@@ -30,7 +31,17 @@ const generateShortUrl=async(req,res)=>{
 
 
 const getShortUrl=async(req,res)=>{
-    
+   const shortID=req.params.shortID 
+   const entry=await url.findOneAndUpdate({
+    shortID
+   },{
+    $push:{
+        visitHistory:{
+            timestamp:Date.now()
+        }
+    }
+   })
+   res.redirect(entry.redirectURL)
 }
 
-module.exports={generateShortUrl}
+module.exports={generateShortUrl,getShortUrl}
