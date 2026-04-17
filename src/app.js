@@ -12,6 +12,9 @@ const limiter=rateLimit({
 
 app.use(cors())
 app.use(express.json())
+app.get('/', (req, res) => {
+  res.status(200).json({ status: 'ok' })
+})
 app.use('/api',limiter,Router)
 
 module.exports=app
